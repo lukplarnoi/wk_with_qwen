@@ -1,1009 +1,125 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>สมาคมฌาปนกิจสงเคราะห์สามัคคีธรรม | ระบบบริหารสมาชิก</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>เข้าสู่ระบบ | สมาคมฌาปนกิจสงเคราะห์</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Pridi:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" rel="stylesheet">
-<link href="https://cdn.datatables.net/2.3.2/css/dataTables.bootstrap5.min.css" rel="stylesheet">
-<link href="https://cdn.datatables.net/buttons/3.2.3/css/buttons.bootstrap5.min.css" rel="stylesheet">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><circle cx='32' cy='32' r='30' fill='%230b4636'/><path d='M32 13c3.8 6.2 10.5 9.4 10.5 17.2 0 6.8-4.7 11.3-10.5 11.3s-10.5-4.5-10.5-11.3c0-3.4 1.4-6 3.4-8.2.3 2.6 1.3 4.5 3.1 5.6-.8-5 1.4-9.7 4-14.6z' fill='%23d4a937'/></svg>">
-
-<style>
-:root{
-  --forest:#0e5c46; --forest-d:#08352a; --forest-l:#147a5c;
-  --gold:#d4a937; --gold-d:#b98f22; --gold-l:#f0dfae;
-  --paper:#f4f5f0; --ink:#22302b; --muted:#68766f; --line:#e3e7df;
-  --radius:14px;
-}
-*{font-family:'Sarabun',sans-serif}
-body{background:radial-gradient(1100px 420px at 88% -10%, rgba(212,169,55,.12), transparent 60%), var(--paper); color:var(--ink);}
-h1,h2,h3,h4,h5,.font-display{font-family:'Pridi',serif}
-a{text-decoration:none}
-::selection{background:rgba(212,169,55,.35)}
-
-/* ---------- ลวดลายไทย (ambient pattern) ---------- */
-.pattern-gold{position:relative;isolation:isolate}
-.pattern-gold::after{content:"";position:absolute;inset:0;z-index:-1;opacity:.5;pointer-events:none;
-  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='38' height='38'%3E%3Cpath d='M19 1l18 18-18 18L1 19z' fill='none' stroke='%23d4a937' stroke-opacity='.16'/%3E%3C/svg%3E");
-  animation:drift 90s linear infinite}
-@keyframes drift{to{background-position:380px 380px}}
-
-/* ---------- ปุ่ม / แบดจ์ ---------- */
-.btn-gold{background:var(--gold);color:#241b03;font-weight:600;border:1px solid var(--gold)}
-.btn-gold:hover{background:var(--gold-d);color:#fff}
-.btn-forest{background:var(--forest);color:#fff;font-weight:600}
-.btn-forest:hover{background:var(--forest-l);color:#fff}
-.btn-outline-forest{border:1.5px solid var(--forest);color:var(--forest);font-weight:600}
-.btn-outline-forest:hover{background:var(--forest);color:#fff}
-.badge-st{font-weight:600;padding:.42em .7em;border-radius:8px;border:1px solid}
-.st-active{background:#e6f4ec;color:#0f6a48;border-color:#bfe3cf}
-.st-suspend{background:#fff6e0;color:#8a6d10;border-color:#ecd9a0}
-.st-dead{background:#eef0f2;color:#46525e;border-color:#d3d9de}
-.st-resign{background:#f1f1ee;color:#6b6f66;border-color:#dcdcd4}
-.badge-tp{font-weight:600;padding:.4em .65em;border-radius:8px;border:1px solid}
-.tp-1{background:#eaf3ef;color:#0e5c46;border-color:#cfe4da}
-.tp-2{background:#e9f4f6;color:#0e6475;border-color:#cfe6ea}
-.tp-3{background:#fbf3dc;color:#8a6d10;border-color:#ecd9a0}
-.pill-pay{font-weight:600;padding:.35em .6em;border-radius:8px}
-.pay-ok{background:#e6f4ec;color:#0f6a48}.pay-wait{background:#fff6e0;color:#8a6d10}
-
-/* ---------- การ์ด ---------- */
-.card{border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 1px 2px rgba(20,40,32,.05)}
-.card-hover{transition:.25s}
-.card-hover:hover{transform:translateY(-3px);box-shadow:0 10px 26px rgba(14,92,70,.13)}
-.sec-head{display:flex;align-items:center;gap:.7rem}
-.sec-ic{width:40px;height:40px;border-radius:11px;display:grid;place-items:center;font-size:1.15rem;flex:none}
-.ic-green{background:#e6f2ec;color:var(--forest)} .ic-gold{background:#fbf3dc;color:var(--gold-d)}
-.ic-red{background:#fdeeee;color:#b23b3b} .ic-slate{background:#eef0f2;color:#46525e}
-.pulse-dot{width:9px;height:9px;border-radius:50%;background:#1fa860;display:inline-block;animation:pulse 1.6s infinite}
-@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(31,168,96,.5)}70%{box-shadow:0 0 0 9px rgba(31,168,96,0)}100%{box-shadow:0 0 0 0 rgba(31,168,96,0)}}
-
-/* ---------- หน้าเข้าสู่ระบบ ---------- */
-.brand-panel{background:linear-gradient(160deg,#0e5c46 0%,#08352a 70%);color:#e8efe9}
-.brand-stats .num{font-family:'Pridi';font-size:2rem;color:var(--gold);font-weight:600;line-height:1}
-.login-card{max-width:440px;width:100%}
-.login-card .card{border-top:4px solid var(--gold)}
-.form-panel{background:radial-gradient(700px 300px at 100% 0, rgba(212,169,55,.14), transparent 55%), var(--paper)}
-.shake{animation:shake .4s}
-@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
-.emblem-glow{filter:drop-shadow(0 0 18px rgba(212,169,55,.45));animation:glow 4s ease-in-out infinite}
-@keyframes glow{50%{filter:drop-shadow(0 0 30px rgba(212,169,55,.75))}}
-
-/* ---------- โครงแอป / Sidebar ---------- */
-.sidebar{width:276px;background:linear-gradient(180deg,#0c4a3a,#08352a);color:#cfe3da;--bs-offcanvas-width:276px}
-@media (min-width:992px){.sidebar{position:sticky;top:0;height:100vh}}
-.sb-brand{display:flex;gap:.75rem;align-items:center;padding:1.15rem 1.15rem .9rem;border-bottom:1px solid rgba(212,169,55,.25)}
-.sb-brand .nm{font-family:'Pridi';color:#fff;font-weight:600;line-height:1.25}
-.sb-brand .nm small{color:var(--gold);font-size:.72rem;letter-spacing:.06em}
-.sb-label{font-size:.72rem;font-weight:700;color:#7ea394;letter-spacing:.12em;margin:1rem 1.25rem .35rem}
-.sb-link{display:flex;align-items:center;gap:.7rem;margin:2px .7rem;padding:.62rem .8rem;border-radius:10px;color:#bcd6ca;font-weight:500;border-left:3px solid transparent;transition:.2s}
-.sb-link i{font-size:1.05rem;width:1.2rem;text-align:center}
-.sb-link:hover{background:rgba(255,255,255,.07);color:#fff;transform:translateX(3px)}
-.sb-link.active{background:rgba(212,169,55,.16);color:#f5e6b8;border-left-color:var(--gold)}
-.sb-round{margin:.9rem;background:rgba(212,169,55,.1);border:1px solid rgba(212,169,55,.3);border-radius:12px;padding:.8rem .9rem;font-size:.82rem}
-.sb-round b{color:var(--gold-l)}
-.sb-user{display:flex;align-items:center;gap:.6rem;padding:.9rem 1.1rem;border-top:1px solid rgba(212,169,55,.2)}
-.sb-user .ava{background:var(--gold);color:#241b03;font-weight:700}
-
-/* ---------- Topbar ---------- */
-.topbar{height:66px;background:rgba(255,255,255,.93);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:1020}
-.clock-chip{font-size:.8rem;background:#f2f5f0;border:1px solid var(--line);border-radius:999px;padding:.35rem .85rem;color:#4a5a52}
-
-/* ---------- สถิติ ---------- */
-.stat-big{background:linear-gradient(140deg,#0e5c46,#08352a);color:#fff;border:none;overflow:hidden}
-.stat-big .num{font-family:'Pridi';font-size:2.9rem;font-weight:600;color:var(--gold);line-height:1}
-.tile .num{font-family:'Pridi';font-size:1.9rem;font-weight:600;line-height:1.1}
-.tile .lbl{color:var(--muted);font-size:.83rem}
-
-/* ---------- ตาราง ---------- */
-table.dataTable thead th{background:#f1f4ee;color:#44554d;font-weight:700;font-size:.8rem;border-bottom:2px solid #dbe3d6!important}
-table.dataTable tbody tr:hover{background:#f6f9f3}
-table.dataTable tbody td{vertical-align:middle;font-size:.9rem}
-.dt-layout-row{margin:.4rem 0}
-.ava{width:34px;height:34px;border-radius:50%;display:inline-grid;place-items:center;font-weight:700;font-size:.85rem;flex:none}
-.ava-lg{width:74px;height:74px;font-size:1.7rem}
-.av-1{background:#dcefe5;color:#0e5c46}.av-2{background:#fbedd3;color:#8a6d10}.av-3{background:#e2ecf5;color:#2b5d8a}
-.av-4{background:#f5e3ea;color:#93406a}.av-5{background:#e8e6f6;color:#54489a}
-#dtExport .dt-button{background:#fff;border:1px solid var(--line);color:#44554d;border-radius:9px;font-size:.82rem;padding:.42rem .8rem;margin-left:.4rem}
-#dtExport .dt-button:hover{background:var(--forest);color:#fff;border-color:var(--forest)}
-.div.dataTables_wrapper div.dataTables_info{padding-top:1rem}
-.dataTables_empty{text-align:center;padding:2rem!important}
-input.form-control:focus,.form-select:focus{border-color:var(--forest-l);box-shadow:0 0 0 .2rem rgba(20,122,92,.15)}
-.select2-container{width:100%!important}
-.select2-container--bootstrap5 .select2-selection{border-color:#d6dbd3;min-height:38px}
-.select2-container--bootstrap5 .select2-dropdown{border-color:var(--forest-l);border-radius:10px}
-.s2-invalid + .select2-container .select2-selection{border-color:#dc3545!important}
-
-/* ---------- Timeline / ผู้รับประโยชน์ ---------- */
-.timeline{list-style:none;margin:0;padding:0 0 0 8px;position:relative}
-.timeline::before{content:"";position:absolute;left:13px;top:6px;bottom:6px;width:2px;background:#dbe3d6}
-.timeline li{position:relative;padding:0 0 1.15rem 2rem}
-.timeline li::before{content:"";position:absolute;left:6px;top:4px;width:15px;height:15px;border-radius:50%;background:#fff;border:3px solid var(--forest)}
-.timeline li.gold::before{border-color:var(--gold)}
-.ben-card{border-left:4px solid var(--gold);background:#fdfaf1;border-radius:10px}
-
-/* ---------- ฟอร์มเพิ่มสมาชิก ---------- */
-.form-sec{border:1px solid var(--line);border-radius:var(--radius);background:#fff}
-.fs-head{display:flex;gap:.8rem;align-items:center;padding:1rem 1.25rem;border-bottom:1px dashed var(--line)}
-.fs-num{width:34px;height:34px;border-radius:50%;background:var(--forest);color:var(--gold-l);display:grid;place-items:center;font-family:'Pridi';font-weight:600;flex:none}
-.pay-opt{border:1.5px solid var(--line);border-radius:12px;padding:.9rem 1rem;cursor:pointer;transition:.2s;height:100%}
-.pay-opt:hover{border-color:var(--forest-l)}
-.pay-opt.picked{border-color:var(--forest);background:#eef6f1;box-shadow:0 0 0 3px rgba(20,122,92,.12)}
-.ben-row{background:#fafbf7;border:1px dashed #dde3d8;border-radius:12px;padding:.8rem}
-
-/* ---------- เบ็ดเตล็ด ---------- */
-.view.anim{animation:fadeUp .45s ease}
-@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-.toast{border:none;border-left:4px solid var(--forest)}
-.toast.warn{border-left-color:#d4a937}.toast.err{border-left-color:#c0392b}
-.footer-note{color:#8b968f;font-size:.8rem}
-.due-item{display:flex;gap:.75rem;align-items:center;padding:.65rem 0;border-bottom:1px dashed var(--line)}
-.due-item:last-child{border-bottom:0}
-@media (max-width:575.98px){.stat-big .num{font-size:2.2rem}.hide-sm{display:none}}
-</style>
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+  <!-- Select2 -->
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link href="css/style.css" rel="stylesheet">
 </head>
-<body>
+<body class="login-page">
 
-<!-- SVG ตราสมาคม -->
-<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
-<symbol id="emblem" viewBox="0 0 64 64">
-  <circle cx="32" cy="32" r="30" fill="#0b4636"/>
-  <circle cx="32" cy="32" r="30" fill="none" stroke="#d4a937" stroke-width="2"/>
-  <circle cx="32" cy="32" r="25" fill="none" stroke="#d4a937" stroke-width=".8" stroke-dasharray="2 3"/>
-  <path d="M32 13c3.8 6.2 10.5 9.4 10.5 17.2 0 6.8-4.7 11.3-10.5 11.3s-10.5-4.5-10.5-11.3c0-3.4 1.4-6 3.4-8.2.3 2.6 1.3 4.5 3.1 5.6-.8-5 1.4-9.7 4-14.6z" fill="#d4a937"/>
-  <path d="M32 25c1.8 3 4.6 4.6 4.6 8.1 0 3-2 5-4.6 5s-4.6-2-4.6-5c0-1.6.6-2.9 1.5-3.9.2 1.2.7 2 1.5 2.5-.4-2.3.6-4.4 1.6-6.7z" fill="#f7f0da"/>
-  <path d="M20 45.5c3.6 2.2 7.7 3.3 12 3.3s8.4-1.1 12-3.3" stroke="#d4a937" stroke-width="1.6" fill="none" stroke-linecap="round"/>
-</symbol>
-</svg>
-
-<!-- ═══════════════════════ 1. หน้า LOGIN ═══════════════════════ -->
-<div id="view-login">
-  <div class="row g-0 min-vh-100">
-    <div class="col-lg-6 brand-panel pattern-gold d-none d-lg-flex flex-column justify-content-between p-5">
-      <div>
-        <div class="d-flex align-items-center gap-3">
-          <svg class="emblem-glow" width="92" height="92"><use href="#emblem"/></svg>
-          <div>
-            <div class="font-display fs-4 fw-semibold text-white lh-sm">สมาคมฌาปนกิจสงเคราะห์<br>สามัคคีธรรม</div>
-            <div class="mt-1" style="color:var(--gold);font-size:.8rem;letter-spacing:.14em">SAMAKKITHAM CREMATION WELFARE ASSOCIATION</div>
+  <div class="login-wrapper">
+    <div class="login-card shadow-lg">
+      <div class="row g-0">
+        <!-- Left: Brand -->
+        <div class="col-lg-6 d-none d-lg-flex brand-side">
+          <div class="brand-content text-center">
+            <div class="brand-icon mb-4">
+              <i class="fas fa-hands-holding-heart"></i>
+            </div>
+            <h2 class="brand-title">สมาคมฌาปนกิจสงเคราะห์</h2>
+            <p class="brand-subtitle">Funeral Assistance Association</p>
+            <p class="brand-desc">ระบบบริหารจัดการสมาชิกมาตรฐานสากล</p>
           </div>
         </div>
-        <div class="my-4" style="height:1px;background:linear-gradient(90deg,var(--gold),transparent)"></div>
-        <h1 class="font-display" style="font-size:2.3rem;line-height:1.35">พลังแห่งการแบ่งปัน<br>ปกป้องทุกครอบครัว<span style="color:var(--gold)">ในยามจากลา</span></h1>
-        <p class="mt-3" style="max-width:440px;color:#b9d2c6">ระบบบริหารสมาชิกสำหรับเจ้าหน้าที่ทะเบียน — จัดการข้อมูลสมาชิก การเรียกเก็บเงินสงเคราะห์ และการจ่ายค่าจัดการศพสงเคราะห์ได้ในที่เดียว</p>
-      </div>
-      <div class="row brand-stats g-4 mt-4">
-        <div class="col-4"><div class="num" data-count="4286">0</div><div class="mt-1" style="color:#b9d2c6;font-size:.85rem">สมาชิกเครือข่าย</div></div>
-        <div class="col-4"><div class="num" data-count="38">0</div><div class="mt-1" style="color:#b9d2c6;font-size:.85rem">ปีแห่งความไว้วางใจ<br>(ก่อตั้ง พ.ศ. 2531)</div></div>
-        <div class="col-4"><div class="num" data-count="156.8" data-dec="1">0</div><div class="mt-1" style="color:#b9d2c6;font-size:.85rem">ล้านบาท จ่ายสงเคราะห์สะสม</div></div>
-      </div>
-      <div class="mt-4" style="color:#8fb3a4;font-size:.8rem"><i class="bi bi-geo-alt me-1"></i>สำนักงานใหญ่ 88/12 ถ.บรมไตรโลกนารถ ต.ในเมือง อ.เมือง จ.พิษณุโลก 65000 &nbsp;•&nbsp; <i class="bi bi-telephone me-1"></i>0-5524-8899</div>
-    </div>
 
-    <div class="col-lg-6 form-panel d-flex align-items-center justify-content-center p-3 p-md-5">
-      <div class="login-card">
-        <div class="text-center d-lg-none mb-4">
-          <svg width="70" height="70"><use href="#emblem"/></svg>
-          <div class="font-display fs-5 fw-semibold mt-2">สมาคมฌาปนกิจสงเคราะห์สามัคคีธรรม</div>
-        </div>
-        <div class="card shadow-sm">
-          <div class="card-body p-4 p-md-5">
-            <h2 class="font-display mb-1">เข้าสู่ระบบเจ้าหน้าที่</h2>
-            <p class="text-muted mb-4" style="font-size:.9rem">ระบบบริหารสมาชิกสมาคมฌาปนกิจสงเคราะห์ v2.4</p>
-            <div id="loginAlert" class="alert alert-danger py-2 d-none" role="alert"><i class="bi bi-exclamation-triangle me-1"></i>ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง กรุณาลองใหม่</div>
-            <form id="frmLogin" novalidate>
-              <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="loginUser" placeholder="ชื่อผู้ใช้" autocomplete="username">
-                <label><i class="bi bi-person me-1"></i>ชื่อผู้ใช้</label>
+        <!-- Right: Form -->
+        <div class="col-lg-6">
+          <div class="login-form p-4 p-md-5">
+            <div class="text-center mb-4">
+              <div class="brand-icon-sm d-lg-none mb-3">
+                <i class="fas fa-hands-holding-heart"></i>
               </div>
-              <div class="form-floating mb-3 position-relative">
-                <input type="password" class="form-control" id="loginPass" placeholder="รหัสผ่าน" autocomplete="current-password">
-                <label><i class="bi bi-lock me-1"></i>รหัสผ่าน</label>
-                <button type="button" class="btn btn-sm position-absolute end-0 top-0 mt-2 me-2 text-muted border-0" id="btnEye"><i class="bi bi-eye" id="eyeIc"></i></button>
+              <h3 class="fw-bold">ยินดีต้อนรับ</h3>
+              <p class="text-muted">กรุณาเข้าสู่ระบบเพื่อใช้งาน</p>
+            </div>
+
+            <form id="loginForm" onsubmit="handleLogin(event)">
+              <div class="mb-3">
+                <label class="form-label fw-semibold">
+                  <i class="fas fa-user me-2"></i>ชื่อผู้ใช้
+                </label>
+                <input type="text" class="form-control form-control-lg" 
+                       id="username" placeholder="กรอกชื่อผู้ใช้" required>
               </div>
-              <div class="d-flex justify-content-between align-items-center mb-4" style="font-size:.86rem">
-                <div class="form-check"><input class="form-check-input" type="checkbox" id="remember" checked><label class="form-check-label text-muted" for="remember">จดจำฉันไว้</label></div>
-                <a href="#" id="forgot" class="text-decoration-none" style="color:var(--forest)">ลืมรหัสผ่าน?</a>
+
+              <div class="mb-3">
+                <label class="form-label fw-semibold">
+                  <i class="fas fa-lock me-2"></i>รหัสผ่าน
+                </label>
+                <div class="input-group">
+                  <input type="password" class="form-control form-control-lg" 
+                         id="password" placeholder="กรอกรหัสผ่าน" required>
+                  <button class="btn btn-outline-secondary" type="button" 
+                          onclick="togglePassword()">
+                    <i class="fas fa-eye" id="eyeIcon"></i>
+                  </button>
+                </div>
               </div>
-              <button type="submit" class="btn btn-gold w-100 py-2 fs-6" id="btnLogin"><i class="bi bi-box-arrow-in-right me-2"></i>เข้าสู่ระบบ</button>
+
+              <div class="d-flex justify-content-between align-items-center mb-4">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="rememberMe">
+                  <label class="form-check-label" for="rememberMe">
+                    จดจำการเข้าสู่ระบบ
+                  </label>
+                </div>
+                <a href="#" class="text-decoration-none">ลืมรหัสผ่าน?</a>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-lg w-100 mb-3">
+                <i class="fas fa-sign-in-alt me-2"></i>เข้าสู่ระบบ
+              </button>
+
+              <div class="text-center mt-3">
+                <small class="text-muted">
+                  Demo: admin / admin123
+                </small>
+              </div>
             </form>
-            <div class="alert mt-4 mb-0 py-2 text-center" style="background:#fbf3dc;color:#7c620f;font-size:.83rem;border:1px dashed #e3cd8a">
-              <i class="bi bi-info-circle me-1"></i>สำหรับทดสอบ — ผู้ใช้: <b>admin</b> &nbsp;รหัสผ่าน: <b>1234</b>
-            </div>
           </div>
         </div>
-        <div class="text-center mt-3 footer-note">© พ.ศ. 2569 สมาคมฌาปนกิจสงเคราะห์สามัคคีธรรม • จดทะเบียนถูกต้องตามกฎหมาย</div>
       </div>
+    </div>
+
+    <div class="text-center mt-4 text-white-50">
+      <small>&copy; 2026 Funeral Assistance Association. All Rights Reserved.</small>
     </div>
   </div>
-</div>
 
-<!-- ═══════════════════════ โครงระบบหลัก ═══════════════════════ -->
-<div id="app" class="d-none">
-<div class="d-flex">
-
-  <!-- Sidebar -->
-  <aside class="sidebar offcanvas-lg offcanvas-start" tabindex="-1" id="sidebar">
-    <div class="offcanvas-header d-lg-none">
-      <span class="font-display fw-semibold text-white">เมนูระบบ</span>
-      <button class="btn-close btn-close-white" data-bs-dismiss="offcanvas" data-bs-target="#sidebar"></button>
-    </div>
-    <div class="offcanvas-body p-0 d-flex flex-column h-100">
-      <div class="sb-brand">
-        <svg width="46" height="46"><use href="#emblem"/></svg>
-        <div class="nm">สมาคมฌาปนกิจสงเคราะห์<br>สามัคคีธรรม<small>ระบบบริหารสมาชิก</small></div>
-      </div>
-      <div class="flex-grow-1 pb-2" style="overflow-y:auto">
-        <div class="sb-label">เมนูหลัก</div>
-        <a href="#" class="sb-link active" data-nav="dashboard"><i class="bi bi-speedometer2"></i>แดชบอร์ด</a>
-        <a href="#" class="sb-link" data-nav="add"><i class="bi bi-person-plus-fill"></i>เพิ่มสมาชิกใหม่</a>
-        <a href="#" class="sb-link" id="navSearch"><i class="bi bi-search"></i>ค้นหาสมาชิก</a>
-        <div class="sb-label">การจัดการ</div>
-        <a href="#" class="sb-link" data-soon><i class="bi bi-cash-stack"></i>การเงิน &amp; เรียกเก็บ</a>
-        <a href="#" class="sb-link" data-soon><i class="bi bi-flower2"></i>การจ่ายสงเคราะห์</a>
-        <a href="#" class="sb-link" data-soon><i class="bi bi-bar-chart-line"></i>รายงาน</a>
-        <div class="sb-label">ระบบ</div>
-        <a href="#" class="sb-link" data-soon><i class="bi bi-gear"></i>ตั้งค่า</a>
-        <div class="sb-round">
-          <div class="d-flex justify-content-between"><span>งวดเรียกเก็บ <b>9/2569</b></span><span class="text-white-50">ครบกำหนด 30 ก.ย. 69</span></div>
-          <div class="progress mt-2" style="height:6px;background:rgba(255,255,255,.15)"><div class="progress-bar" style="width:74%;background:var(--gold)"></div></div>
-          <div class="mt-1" style="color:#bfe0d2;font-size:.78rem">เรียกเก็บแล้ว 74% ของสมาชิกทั้งหมด</div>
-        </div>
-      </div>
-      <div class="sb-user">
-        <span class="ava" style="width:38px;height:38px;border-radius:50%;display:grid;place-items:center">ผก</span>
-        <div class="flex-grow-1 lh-sm"><div class="text-white fw-semibold" style="font-size:.9rem">ผู้ดูแลระบบ</div><small style="color:#8fb3a4">เจ้าหน้าที่ทะเบียน</small></div>
-        <button class="btn btn-sm" id="btnLogout" title="ออกจากระบบ" style="color:#e8cf7f"><i class="bi bi-box-arrow-right"></i></button>
-      </div>
-    </div>
-  </aside>
-
-  <!-- เนื้อหาหลัก -->
-  <div class="d-flex flex-column flex-grow-1" style="min-width:0">
-    <header class="topbar d-flex align-items-center gap-2 px-3 px-lg-4">
-      <button class="btn btn-outline-forest d-lg-none" data-bs-toggle="offcanvas" data-bs-target="#sidebar"><i class="bi bi-list"></i></button>
-      <h5 class="font-display mb-0 me-auto" id="pageTitle">แดชบอร์ด</h5>
-      <div class="input-group d-none d-md-flex" style="width:250px">
-        <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
-        <input class="form-control" id="globalSearch" placeholder="ค้นหาสมาชิกด่วน… (Enter)">
-      </div>
-      <span class="clock-chip d-none d-xl-inline" id="clock"></span>
-      <div class="dropdown">
-        <button class="btn position-relative btn-outline-forest" data-bs-toggle="dropdown"><i class="bi bi-bell"></i>
-          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill" style="background:#c0392b;font-size:.6rem">3</span></button>
-        <div class="dropdown-menu dropdown-menu-end shadow" style="width:320px">
-          <h6 class="dropdown-header font-display">การแจ้งเตือน</h6>
-          <div id="notifList"></div>
-        </div>
-      </div>
-    </header>
-
-    <main class="flex-grow-1 p-3 p-lg-4">
-
-      <!-- ═══════════ 2. หน้า DASHBOARD ═══════════ -->
-      <section id="view-dashboard" class="view">
-        <div class="d-flex flex-wrap justify-content-between align-items-end gap-2 mb-4">
-          <div>
-            <h3 class="font-display mb-0">ยินดีต้อนรับ คุณผู้ดูแลระบบ</h3>
-            <div class="text-muted" style="font-size:.9rem" id="todayLine"></div>
-          </div>
-          <button class="btn btn-gold" id="btnQuickAdd"><i class="bi bi-person-plus me-1"></i>เพิ่มสมาชิกใหม่</button>
-        </div>
-
-        <!-- สถิติ -->
-        <div class="row g-3 mb-4">
-          <div class="col-xl-4">
-            <div class="card stat-big pattern-gold h-100 p-4">
-              <div class="d-flex justify-content-between align-items-start">
-                <div><div style="color:#bfe0d2;font-size:.85rem">สมาชิกทั้งหมด (คน)</div><div class="num mt-2" id="stTotal">0</div></div>
-                <span class="badge" style="background:rgba(212,169,55,.2);color:var(--gold-l)"><i class="bi bi-arrow-up-short"></i>8.2% จากปีก่อน</span>
-              </div>
-              <hr style="border-color:rgba(255,255,255,.15)">
-              <div class="d-flex gap-4" style="font-size:.83rem;color:#bfe0d2">
-                <span><i class="bi bi-check-circle me-1" style="color:#7ad3a5"></i>สถานะปกติ <b class="text-white" id="stActive">0</b> คน</span>
-                <span><i class="bi bi-person-dash me-1" style="color:var(--gold)"></i>ไม่ใช้งาน <b class="text-white" id="stInactive">0</b> คน</span>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-8">
-            <div class="row g-3 h-100">
-              <div class="col-sm-6 col-lg-3"><div class="card tile card-hover h-100 p-3"><div class="sec-ic ic-green mb-2"><i class="bi bi-person-check"></i></div><div class="num" id="stNew">0</div><div class="lbl">สมาชิกใหม่ ส.ค. 2569</div></div></div>
-              <div class="col-sm-6 col-lg-3"><div class="card tile card-hover h-100 p-3"><div class="sec-ic ic-red mb-2"><i class="bi bi-exclamation-octagon"></i></div><div class="num" id="stOwed">0</div><div class="lbl">รายค้างชำระ (<span id="stOwedSum">0</span> บ.)</div></div></div>
-              <div class="col-sm-6 col-lg-3"><div class="card tile card-hover h-100 p-3"><div class="sec-ic ic-gold mb-2"><i class="bi bi-flower2"></i></div><div class="num" style="font-size:1.45rem" id="stPaid">0</div><div class="lbl">จ่ายสงเคราะห์ปี 69 (บาท)</div></div></div>
-              <div class="col-sm-6 col-lg-3"><div class="card tile card-hover h-100 p-3"><div class="sec-ic ic-slate mb-2"><i class="bi bi-percent"></i></div><div class="num" id="stRate">0</div><div class="lbl">อัตราชำระงวดล่าสุด</div></div></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="row g-3 mb-4">
-          <!-- กราฟ -->
-          <div class="col-xl-8">
-            <div class="card h-100">
-              <div class="card-body">
-                <div class="sec-head mb-3">
-                  <div class="sec-ic ic-green"><i class="bi bi-graph-up"></i></div>
-                  <div><h6 class="mb-0 font-display">แนวโน้มสมาชิกใหม่ &amp; เงินสงเคราะห์ที่จ่าย</h6><small class="text-muted">ย้อนหลัง 12 เดือน (ก.ย. 68 – ส.ค. 69)</small></div>
-                </div>
-                <div style="height:280px"><canvas id="mainChart"></canvas></div>
-              </div>
-            </div>
-          </div>
-          <!-- การเรียกเก็บที่ใกล้ถึงกำหนด -->
-          <div class="col-xl-4">
-            <div class="card h-100">
-              <div class="card-body">
-                <div class="sec-head mb-2">
-                  <div class="sec-ic ic-gold"><i class="bi bi-hourglass-split"></i></div>
-                  <div><h6 class="mb-0 font-display">การเรียกเก็บที่ต้องติดตาม</h6><small class="text-muted">งวดที่ 9/2569 • ครบกำหนด 30 ก.ย. 69</small></div>
-                </div>
-                <div id="dueList"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 2.1 สมาชิกล่าสุด -->
-        <div class="card mb-4" id="latestSec">
-          <div class="card-body pb-2">
-            <div class="sec-head mb-3">
-              <div class="sec-ic ic-green"><i class="bi bi-person-badge"></i></div>
-              <div class="me-auto"><h6 class="mb-0 font-display"><span class="pulse-dot me-2"></span>สมาชิกล่าสุด</h6><small class="text-muted">8 รายการสมัครล่าสุดที่บันทึกเข้าระบบ</small></div>
-              <a href="#" class="btn btn-sm btn-outline-forest" id="lnkAllMembers">ดูทั้งหมด <i class="bi bi-arrow-down"></i></a>
-            </div>
-            <div class="table-responsive"><table class="table table-hover align-middle mb-0">
-              <thead><tr><th>สมาชิก</th><th class="hide-sm">ประเภท</th><th class="hide-sm">จังหวัด</th><th>วันที่สมัคร</th><th>สถานะ</th><th></th></tr></thead>
-              <tbody id="latestBody"></tbody>
-            </table></div>
-          </div>
-        </div>
-
-        <!-- 2.2 ค้นหาสมาชิกด้วยเงื่อนไข + DataTable -->
-        <div class="card" id="memberSec">
-          <div class="card-body">
-            <div class="sec-head mb-3">
-              <div class="sec-ic ic-gold"><i class="bi bi-search"></i></div>
-              <div class="me-auto"><h6 class="mb-0 font-display">ค้นหาและจัดการข้อมูลสมาชิก</h6><small class="text-muted">กรองด้วยเงื่อนไขสถานะ ประเภท จังหวัด ช่วงอายุ และช่วงวันที่สมัคร</small></div>
-              <span class="badge rounded-pill" id="fCount" style="background:#eef2ec;color:#44554d">0 เงื่อนไข</span>
-            </div>
-
-            <!-- เงื่อนไขการค้นหา -->
-            <div class="p-3 mb-3" style="background:#f8faf5;border:1px dashed #dbe3d6;border-radius:12px">
-              <div class="row g-2 align-items-end">
-                <div class="col-md-6 col-lg-3"><label class="form-label small fw-semibold mb-1">คำค้น (เลขสมาชิก / ชื่อ / เลขบัตร)</label><input class="form-control form-control-sm" id="fText" placeholder="พิมพ์แล้วกด Enter…"></div>
-                <div class="col-6 col-md-3 col-lg-2"><label class="form-label small fw-semibold mb-1">สถานะ</label>
-                  <select class="form-select form-select-sm" id="fStatus"><option value="">ทั้งหมด</option><option>ปกติ</option><option>พักใช้สิทธิ์</option><option>ถึงแก่กรรม</option><option>ลาออก</option></select></div>
-                <div class="col-6 col-md-3 col-lg-2"><label class="form-label small fw-semibold mb-1">ประเภทสมาชิก</label>
-                  <select class="form-select form-select-sm" id="fType"><option value="">ทั้งหมด</option><option>สามัญ</option><option>วิสามัญ</option><option>ตลอดชีพ</option></select></div>
-                <div class="col-md-6 col-lg-2"><label class="form-label small fw-semibold mb-1">จังหวัด</label><select class="form-select form-select-sm" id="fProvince"><option value="">ทุกจังหวัด</option></select></div>
-                <div class="col-md-6 col-lg-3"><label class="form-label small fw-semibold mb-1">ช่วงอายุ (ปี)</label>
-                  <div class="d-flex gap-1 align-items-center"><input type="number" min="0" class="form-control form-control-sm" id="fAgeMin" placeholder="ต่ำสุด"><span class="text-muted">–</span><input type="number" min="0" class="form-control form-control-sm" id="fAgeMax" placeholder="สูงสุด"></div></div>
-                <div class="col-md-6 col-lg-4"><label class="form-label small fw-semibold mb-1">สมัครตั้งแต่</label><input type="date" class="form-control form-control-sm" id="fFrom"></div>
-                <div class="col-md-6 col-lg-3"><label class="form-label small fw-semibold mb-1">ถึงวันที่</label><input type="date" class="form-control form-control-sm" id="fTo"></div>
-                <div class="col-12 col-lg-2 d-flex gap-2">
-                  <button class="btn btn-forest btn-sm flex-grow-1" id="btnFilter"><i class="bi bi-funnel me-1"></i>ค้นหา</button>
-                  <button class="btn btn-outline-secondary btn-sm" id="btnResetFilter" title="ล้างเงื่อนไข"><i class="bi bi-arrow-counterclockwise"></i></button>
-                </div>
-              </div>
-            </div>
-
-            <div class="d-flex flex-wrap justify-content-end align-items-center mb-2"><div id="dtExport"></div></div>
-            <div class="table-responsive"><table class="table table-hover w-full" id="memberTable" style="width:100%">
-              <thead><tr><th>เลขสมาชิก</th><th>ชื่อ - นามสกุล</th><th>ประเภท</th><th>จังหวัด</th><th class="text-center">อายุ</th><th>สถานะ</th><th>วันที่สมัคร</th><th class="text-center">จัดการ</th></tr></thead>
-              <tbody></tbody>
-            </table></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ═══════════ 3. หน้ารายละเอียดสมาชิก (JS สร้าง) ═══════════ -->
-      <section id="view-member" class="view d-none"></section>
-
-      <!-- ═══════════ 4. หน้าเพิ่มข้อมูลสมาชิก ═══════════ -->
-      <section id="view-add" class="view d-none">
-        <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
-          <div><h3 class="font-display mb-0">เพิ่มสมาชิกใหม่</h3><div class="text-muted" style="font-size:.9rem">กรอกข้อมูลให้ครบถ้วน — เลขสมาชิกจะถูกออกอัตโนมัติเมื่อบันทึก</div></div>
-          <button class="btn btn-outline-secondary" id="btnBackDash"><i class="bi bi-arrow-left me-1"></i>กลับแดชบอร์ด</button>
-        </div>
-        <form id="frmMember" novalidate>
-        <div class="row g-3">
-          <div class="col-lg-8">
-            <!-- ส่วนบุคคล -->
-            <div class="form-sec mb-3"><div class="fs-head"><div class="fs-num">1</div><div><b class="font-display">ข้อมูลส่วนบุคคล</b><div class="text-muted" style="font-size:.8rem">ตามบัตรประจำตัวประชาชน</div></div></div>
-              <div class="card-body">
-                <div class="row g-3">
-                  <div class="col-md-3"><label class="form-label">คำนำหน้า <span class="text-danger">*</span></label>
-                    <select class="form-select" id="mPrefix" required><option value="">เลือก…</option><option>นาย</option><option>นาง</option><option>นางสาว</option></select></div>
-                  <div class="col-md-4"><label class="form-label">ชื่อจริง <span class="text-danger">*</span></label><input class="form-control" id="mFirst" required></div>
-                  <div class="col-md-5"><label class="form-label">นามสกุล <span class="text-danger">*</span></label><input class="form-control" id="mLast" required></div>
-                  <div class="col-md-5"><label class="form-label">เลขบัตรประชาชน 13 หลัก <span class="text-danger">*</span></label>
-                    <input class="form-control" id="mIdCard" placeholder="X-XXXX-XXXXX-XX-X" maxlength="17" required inputmode="numeric"></div>
-                  <div class="col-md-4"><label class="form-label">วันเกิด <span class="text-danger">*</span></label><input type="date" class="form-control" id="mDob" max="2026-08-14" required>
-                    <div class="form-text">อายุ: <b id="mAge">-</b> ปี</div></div>
-                  <div class="col-md-3"><label class="form-label d-block">เพศ <span class="text-danger">*</span></label>
-                    <div class="pt-1"><div class="form-check form-check-inline"><input class="form-check-input" type="radio" name="mGender" id="gM" value="ชาย" required><label class="form-check-label" for="gM">ชาย</label></div>
-                    <div class="form-check form-check-inline"><input class="form-check-input" type="radio" name="mGender" id="gF" value="หญิง"><label class="form-check-label" for="gF">หญิง</label></div></div></div>
-                  <div class="col-md-6"><label class="form-label">อาชีพ</label><select class="form-select" id="mOcc"></select></div>
-                  <div class="col-md-6"><label class="form-label">เบอร์โทรศัพท์ <span class="text-danger">*</span></label><input class="form-control" id="mPhone" placeholder="0X-XXXX-XXXX" required maxlength="12"></div>
-                  <div class="col-md-6"><label class="form-label">อีเมล</label><input type="email" class="form-control" id="mEmail" placeholder="example@mail.com"></div>
-                </div>
-              </div>
-            </div>
-            <!-- ที่อยู่ -->
-            <div class="form-sec mb-3"><div class="fs-head"><div class="fs-num">2</div><div><b class="font-display">ที่อยู่ตามทะเบียนบ้าน</b><div class="text-muted" style="font-size:.8rem">สำหรับจัดส่งเอกสารและหนังสือเรียกเก็บ</div></div></div>
-              <div class="card-body">
-                <div class="row g-3">
-                  <div class="col-md-4"><label class="form-label">บ้านเลขที่ / หมู่ / ซอย <span class="text-danger">*</span></label><input class="form-control" id="mHouse" required></div>
-                  <div class="col-md-8"><label class="form-label">ถนน</label><input class="form-control" id="mRoad"></div>
-                  <div class="col-md-6"><label class="form-label">ตำบล / แขวง <span class="text-danger">*</span></label><input class="form-control" id="mSub" required></div>
-                  <div class="col-md-6"><label class="form-label">อำเภอ / เขต <span class="text-danger">*</span></label><input class="form-control" id="mDist" required></div>
-                  <div class="col-md-6"><label class="form-label">จังหวัด <span class="text-danger">*</span></label><select class="form-select" id="mProvince" required><option value="">เลือกจังหวัด…</option></select></div>
-                  <div class="col-md-3"><label class="form-label">รหัสไปรษณีย์ <span class="text-danger">*</span></label><input class="form-control" id="mZip" maxlength="5" inputmode="numeric" required></div>
-                </div>
-              </div>
-            </div>
-            <!-- ผู้รับผลประโยชน์ -->
-            <div class="form-sec mb-3"><div class="fs-head"><div class="fs-num">3</div><div><b class="font-display">ผู้รับผลประโยชน์</b><div class="text-muted" style="font-size:.8rem">รวมสัดส่วนต้องเท่ากับ 100%</div></div>
-              <span class="badge ms-auto rounded-pill" id="benTotal" style="background:#fff6e0;color:#8a6d10">0%</span></div>
-              <div class="card-body">
-                <div class="d-flex flex-column gap-2" id="benRows"></div>
-                <button type="button" class="btn btn-sm btn-outline-forest mt-3" id="btnAddBen"><i class="bi bi-plus-lg me-1"></i>เพิ่มผู้รับผลประโยชน์</button>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4">
-            <!-- สมาชิกภาพ -->
-            <div class="form-sec mb-3"><div class="fs-head"><div class="fs-num">4</div><div><b class="font-display">ข้อมูลสมาชิกภาพ</b></div></div>
-              <div class="card-body">
-                <label class="form-label">ประเภทสมาชิก <span class="text-danger">*</span></label>
-                <select class="form-select mb-3" id="mType" required><option value="">เลือกประเภท…</option><option>สามัญ</option><option>วิสามัญ</option><option>ตลอดชีพ</option></select>
-                <label class="form-label">เขตสังกัด <span class="text-danger">*</span></label>
-                <select class="form-select mb-3" id="mZone" required><option value="">เลือกเขต…</option><option>เขตที่ 1 (ภาคกลาง)</option><option>เขตที่ 2 (ภาคเหนือ)</option><option>เขตที่ 3 (ภาคอีสาน)</option><option>เขตที่ 4 (ภาคใต้)</option></select>
-                <label class="form-label">วันที่สมัคร <span class="text-danger">*</span></label>
-                <input type="date" class="form-control mb-3" id="mRegDate" value="2026-08-14" required>
-                <label class="form-label">ช่องทางสมัคร</label>
-                <select class="form-select" id="mChannel"><option>สำนักงานใหญ่</option><option>สมัครออนไลน์</option><option>ตัวแทนเขต</option></select>
-              </div>
-            </div>
-            <!-- การชำระเงิน -->
-            <div class="form-sec mb-3"><div class="fs-head"><div class="fs-num">5</div><div><b class="font-display">วิธีการชำระเงินสงเคราะห์</b></div></div>
-              <div class="card-body">
-                <div class="row g-2">
-                  <div class="col-12"><label class="pay-opt picked w-100"><input class="form-check-input me-2" type="radio" name="payMethod" value="หักบัญชีอัตโนมัติ" checked>หักบัญชีอัตโนมัติ<small class="d-block text-muted ms-4">ทุกวันที่ 5 ของเดือน</small></label></div>
-                  <div class="col-12"><label class="pay-opt w-100"><input class="form-check-input me-2" type="radio" name="payMethod" value="พร้อมเพย์">พร้อมเพย์<small class="d-block text-muted ms-4">สแกน QR แต่ละงวด</small></label></div>
-                  <div class="col-12"><label class="pay-opt w-100"><input class="form-check-input me-2" type="radio" name="payMethod" value="ชำระที่สำนักงาน">ชำระที่สำนักงาน<small class="d-block text-muted ms-4">เงินสด / โอนผ่านเคาน์เตอร์</small></label></div>
-                </div>
-                <div class="form-check mt-3">
-                  <input class="form-check-input" type="checkbox" id="mAgree" required>
-                  <label class="form-check-label" style="font-size:.85rem" for="mAgree">ผู้สมัครยอมรับ<span class="text-danger">*</span> <a href="#" onclick="return false" style="color:var(--forest)">ข้อบังคับสมาคมฯ พ.ศ. 2565</a> และยินยอมให้เรียกเก็บเงินสงเคราะห์ตามงวด</label>
-                </div>
-              </div>
-            </div>
-            <div class="d-grid gap-2">
-              <button type="submit" class="btn btn-gold btn-lg"><i class="bi bi-save me-2"></i>บันทึกข้อมูลสมาชิก</button>
-              <button type="button" class="btn btn-outline-secondary" id="btnClearFrm"><i class="bi bi-eraser me-1"></i>ล้างฟอร์ม</button>
-            </div>
-          </div>
-        </div>
-        </form>
-      </section>
-
-    </main>
-    <footer class="text-center py-3 footer-note border-top" style="background:#fff">© พ.ศ. 2569 สมาคมฌาปนกิจสงเคราะห์สามัคคีธรรม • ระบบบริหารสมาชิก v2.4.1 • ข้อมูลตัวอย่างเพื่อการสาธิต</footer>
-  </div>
-</div>
-</div>
-
-<!-- Toast -->
-<div class="toast-container position-fixed top-0 end-0 p-3" style="z-index:2000" id="toastBox"></div>
-
-<!-- Modal ยืนยัน -->
-<div class="modal fade" id="confirmModal" tabindex="-1"><div class="modal-dialog modal-dialog-centered"><div class="modal-content" style="border-radius:16px">
-  <div class="modal-body text-center p-4"><i class="bi bi-question-circle" style="font-size:2.4rem;color:var(--gold)"></i>
-    <h5 class="font-display mt-2 mb-1" id="cfTitle">ยืนยัน</h5><p class="text-muted mb-4" id="cfMsg"></p>
-    <div class="d-flex gap-2 justify-content-center"><button class="btn btn-outline-secondary px-4" data-bs-dismiss="modal">ยกเลิก</button>
-    <button class="btn btn-forest px-4" id="cfOk">ตกลง</button></div></div>
-</div></div></div>
-
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.full.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-<script src="https://cdn.datatables.net/2.3.2/js/dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/2.3.2/js/dataTables.bootstrap5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/3.2.3/js/dataTables.buttons.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/3.2.3/js/buttons.bootstrap5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/3.2.3/js/buttons.html5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/3.2.3/js/buttons.print.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
-
-<script>
-/* ═════════════ Utilities ═════════════ */
-const TODAY = new Date('2026-08-14T00:00:00');
-const M_S=['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
-const M_F=['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'];
-const WD=['อาทิตย์','จันทร์','อังคาร','พุธ','พฤหัสบดี','ศุกร์','เสาร์'];
-const sr = s => { const x = Math.sin(s*9973+7)*10000; return x - Math.floor(x); };
-const pick = (a,s) => a[Math.floor(sr(s)*a.length)];
-const pad = n => String(n).padStart(2,'0');
-const iso = (y,m,d) => `${y}-${pad(m)}-${pad(d)}`;
-function fmtBE(i){ if(!i) return '-'; const d=new Date(i+'T00:00:00'); return `${d.getDate()} ${M_S[d.getMonth()]} ${d.getFullYear()+543}`; }
-function fmtBEfull(i){ const d=new Date(i+'T00:00:00'); return `${d.getDate()} ${M_F[d.getMonth()]} ${d.getFullYear()+543}`; }
-function thAgo(i){ const days=Math.round((TODAY - new Date(i+'T00:00:00'))/864e5); return days<=0?'วันนี้':days===1?'เมื่อวานนี้':`${days} วันที่แล้ว`; }
-function ageOf(i){ const d=new Date(i), t=TODAY; let a=t.getFullYear()-d.getFullYear(); if(t.getMonth()<d.getMonth()||(t.getMonth()===d.getMonth()&&t.getDate()<d.getDate()))a--; return a; }
-const money = n => n.toLocaleString('th-TH');
-const stBadge = s => ({'ปกติ':'<span class="badge-st st-active">● ปกติ</span>','พักใช้สิทธิ์':'<span class="badge-st st-suspend">● พักใช้สิทธิ์</span>','ถึงแก่กรรม':'<span class="badge-st st-dead">● ถึงแก่กรรม</span>','ลาออก':'<span class="badge-st st-resign">● ลาออก</span>'}[s]||s);
-const tpBadge = t => ({'สามัญ':'<span class="badge-tp tp-1">สามัญ</span>','วิสามัญ':'<span class="badge-tp tp-2">วิสามัญ</span>','ตลอดชีพ':'<span class="badge-tp tp-3">ตลอดชีพ</span>'}[t]||t);
-const AVA=['av-1','av-2','av-3','av-4','av-5'];
-const avaCls = i => AVA[i%5];
-
-function toast(title,msg,tone='ok',icon){
-  const cls = tone==='warn'?'warn':tone==='err'?'err':'';
-  const ic = icon || (tone==='warn'?'bi-info-circle':tone==='err'?'bi-x-circle':'bi-check-circle-fill');
-  const el=$(`<div class="toast ${cls} shadow" role="alert"><div class="toast-body d-flex gap-2 align-items-start">
-    <i class="bi ${ic} mt-1" style="color:${tone==='err'?'#c0392b':tone==='warn'?'var(--gold-d)':'var(--forest)'}"></i>
-    <div><b class="font-display">${title}</b><div style="font-size:.85rem">${msg}</div></div>
-    <button class="btn-close ms-auto" data-bs-dismiss="toast"></button></div></div>`);
-  $('#toastBox').append(el); new bootstrap.Toast(el[0],{delay:3800}).show(); el.on('hidden.bs.toast',()=>el.remove());
-}
-function confirmBox(title,msg,cb){ $('#cfTitle').text(title); $('#cfMsg').text(msg);
-  const m=bootstrap.Modal.getOrCreateInstance('#confirmModal'); $('#cfOk').off('click').on('click',()=>{cb();m.hide();}); m.show(); }
-
-/* ═════════════ ข้อมูลตัวอย่าง ═════════════ */
-const PROV=['กรุงเทพมหานคร','นนทบุรี','ปทุมธานี','สมุทรปราการ','นครปฐม','พระนครศรีอยุธยา','สุพรรณบุรี','ราชบุรี','เพชรบุรี','ประจวบคีรีขันธ์','ชลบุรี','ระยอง','ฉะเชิงเทรา','นครนายก','เชียงใหม่','เชียงราย','ลำปาง','พิษณุโลก','ขอนแก่น','อุดรธานี','นครราชสีมา','อุบลราชธานี','สกลนคร','บุรีรัมย์','สงขลา','นครศรีธรรมราช','สุราษฎร์ธานี','ภูเก็ต','ตรัง'];
-const BKKD=['เขตบางแค','เขตจตุจักร','เขตบางกะปิ','เขตลาดพร้าว','เขตหนองแขม','เขตสวนหลวง'];
-const SUB=['ท่าข้าม','ในเมือง','รอบเมือง','ดอนแก้ว','หนองบัว','ตลาดขวัญ','วัดใหม่','สันผีเสื้อ','หมากแข้ง','โพธิ์กลาง'];
-const ROADS=['ถ.เพชรเกษม','ถ.มิตรภาพ','ถ.พหลโยธิน','ถ.สุขุมวิท','ถ.บรมไตรโลกนารถ','ถ.ศรีจันทร์','ถ.เจริญเมือง','ถ.นิมมานเหมินท์','ถ.ราษฎร์ยินดี','ถ.กาญจนวิถี'];
-const OCC=['ข้าราชการบำนาญ','ค้าขาย','พนักงานบริษัท','เกษตรกร','แม่บ้าน','ธุรกิจส่วนตัว','ครู','พยาบาล','ช่างไฟฟ้า','รับจ้างทั่วไป'];
-const CH=['สำนักงานใหญ่','สมัครออนไลน์','ตัวแทนเขต'];
-const PM=['หักบัญชีอัตโนมัติ','พร้อมเพย์','ชำระที่สำนักงาน','โอนเงิน'];
-const REL=['คู่สมรส','บุตร','บิดา','มารดา','พี่น้อง'];
-const FM=['สมชาย','ประวิทย์','อนุชา','วีระ','สมบัติ','ชูชาติ','ธนากร','พิชัย','มนูญ','สุชาติ','อดิศร','เกรียงไกร','ปรีชา','ทวีศักดิ์','อำนวย','บุญมี','สายชล','ประเสริฐ','วิเชียร','สมพงษ์'];
-const FF=['สมศรี','มาลี','วรรณา','ปราณี','นภาพร','จันทร์เพ็ญ','สุวรรณา','อำไพ','ดาวเรือง','นิภา','รัตนา','พิมพ์ใจ','ฉวีวรรณ','บานเย็น','เสาวลักษณ์','พรทิพย์','ละมัย','สำรวย','ทองดี','บุญเลี้ยง'];
-const LN=['สุขสวัสดิ์','วงศ์สุวรรณ','จันทร์เจริญ','ทรัพย์มณี','บุญมี','แก้วมณี','ศรีสมบูรณ์','เพชรรัตน์','ธรรมวงศ์','อินทร์แก้ว','พูนทรัพย์','มงคลเลิศ','รัตนชัย','สุวรรณดี','เกิดโภคา','ใจมั่น','แสงทอง','เอี่ยมสะอาด','ชูศิลป์','บัณฑิตกุล','โพธิ์งาม','ทรัพย์ทวี','ธรรมรักษ์','วิริยะกุล','จันทรา'];
-const T2R={'ก':'k','ข':'kh','ค':'kh','ง':'ng','จ':'ch','ฉ':'ch','ช':'ch','ซ':'s','ญ':'y','ด':'d','ต':'t','ถ':'th','ท':'th','ธ':'th','น':'n','บ':'b','ป':'p','ผ':'ph','พ':'ph','ฟ':'f','ภ':'ph','ม':'m','ย':'y','ร':'r','ล':'l','ว':'w','ศ':'s','ส':'s','ห':'h','อ':'o','า':'a','ิ':'i','ี':'i','ึ':'u','ุ':'u','ู':'u','เ':'e','แ':'ae','โ':'o','ใ':'ai','ไ':'ai'};
-const translit = t => (t.split('').map(c=>T2R[c]||'').join('')||'member').toLowerCase();
-
-function genIdCard(i){ let d=[1+Math.floor(sr(i+2)*8)]; for(let k=0;k<11;k++) d.push(Math.floor(sr(i*13+k+5)*10));
-  let sum=0; for(let k=0;k<12;k++) sum+=d[k]*(13-k); const c=(11-sum%11)%10;
-  return `${d[0]}-${d.slice(1,5).join('')}-${d.slice(5,10).join('')}-${d.slice(10,12).join('')}-${c}`; }
-function genPhone(i){ return `0${pick(['6','8','9'],i)}${Math.floor(sr(i+300)*10)}-${Math.floor(100+sr(i+301)*900)}-${Math.floor(1000+sr(i+302)*9000)}`; }
-
-const RECENT=['2026-07-28','2026-07-31','2026-08-02','2026-08-04','2026-08-07','2026-08-09','2026-08-12','2026-08-14'];
-function genMembers(N){
-  const arr=[];
-  for(let i=0;i<N;i++){
-    const male=sr(i+3)<0.52, first=male?pick(FM,i+7):pick(FF,i+9), last=pick(LN,i*3+1);
-    const prefix=male?'นาย':(sr(i+13)<0.6?'นาง':'นางสาว');
-    const dob=iso(1946+Math.floor(sr(i+17)*40),1+Math.floor(sr(i+19)*12),1+Math.floor(sr(i+23)*28));
-    const reg = i>=N-8 ? RECENT[i-(N-8)] : iso(2019+Math.floor(sr(i+29)*7),1+Math.floor(sr(i+31)*12),1+Math.floor(sr(i+37)*28));
-    const prov=pick(PROV,i+41), bkk=prov==='กรุงเทพมหานคร';
-    const status = i===6?'ถึงแก่กรรม': i===15?'ลาออก': (i===22||i===47)?'พักใช้สิทธิ์':'ปกติ';
-    const owed = (i===22||i===47)?1300:(i===30||i===52)?650:0;
-    const r=sr(i+53), type=r<0.62?'สามัญ':r<0.86?'วิสามัญ':'ตลอดชีพ';
-    const bn=1+Math.floor(sr(i+71)*3), shares=bn===1?[100]:bn===2?(sr(i+73)<.5?[60,40]:[70,30]):[50,30,20];
-    const bens=[];
-    for(let b=0;b<bn;b++){
-      const bm = b===0 ? !male : sr(i+77+b)<0.5;
-      const bf = bm?pick(FM,i+79+b*5):pick(FF,i+83+b*5);
-      const bp = bm?'นาย':(b===0?(male?'นาง':'นาย'):(sr(i+89+b)<0.45?'นางสาว':'นาง'));
-      bens.push({name:`${bp}${bf} ${last}`,relation:b===0?'คู่สมรส':'บุตร',share:shares[b],phone:genPhone(i+400+b)});
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    function togglePassword() {
+      const pwd = document.getElementById('password');
+      const icon = document.getElementById('eyeIcon');
+      if (pwd.type === 'password') {
+        pwd.type = 'text';
+        icon.classList.replace('fa-eye', 'fa-eye-slash');
+      } else {
+        pwd.type = 'password';
+        icon.classList.replace('fa-eye-slash', 'fa-eye');
+      }
     }
-    arr.push({idx:i,id:`สฌส-${1001+i}`,prefix,first,last,gender:male?'ชาย':'หญิง',dob,age:ageOf(dob),
-      idCard:genIdCard(i),phone:genPhone(i),email:`${translit(first).slice(0,9)}.${translit(last).slice(0,6)}@mail.com`,
-      occupation:pick(OCC,i+61),houseNo:`${1+Math.floor(sr(i+97)*120)}/${1+Math.floor(sr(i+101)*30)}`,road:pick(ROADS,i+103),
-      subdistrict:bkk?'แขวง'+pick(SUB,i+47):'ตำบล'+pick(SUB,i+47),district:bkk?pick(BKKD,i+43):'อำเภอเมือง'+prov,
-      province:prov,postcode:String(10000+Math.floor(sr(i+107)*89000)),type,zone:'เขตที่ '+(1+Math.floor(sr(i+59)*4)),
-      status,regDate:reg,channel:pick(CH,i+67),payMethod:pick(PM,i+113),owed,beneficiaries:bens});
-  }
-  return arr;
-}
-const MEMBERS = genMembers(120);
-const byId = id => MEMBERS.find(m=>m.id===id);
-function buildPayments(m){
-  const rounds=['9/2569','8/2569','7/2569','6/2569','5/2569','4/2569'], out=[];
-  for(let k=0;k<6;k++){ const d=new Date('2026-08-05'); d.setDate(d.getDate()-k*40);
-    out.push({round:'เรียกเก็บที่ '+rounds[k],date:iso(d.getFullYear(),d.getMonth()+1,d.getDate()),
-      amount:620+Math.floor(sr(m.idx+k*3)*81),method:pick(PM,m.idx+k*7),
-      status:(k===0&&m.owed>0)?'รอชำระ':'ชำระแล้ว'}); }
-  return out;
-}
 
-/* ═════════════ LOGIN ═════════════ */
-$('#btnEye').on('click',function(){ const p=$('#loginPass'), t=p.attr('type')==='password'; p.attr('type',t?'text':'password'); $('#eyeIc').attr('class',t?'bi bi-eye-slash':'bi bi-eye'); });
-$('#forgot').on('click',e=>{e.preventDefault();toast('กู้คืนรหัสผ่าน','กรุณาติดต่อผู้ดูแลระบบ โทร. 0-5524-8899 ต่อ 12','warn');});
-$('#frmLogin').on('submit',function(e){
-  e.preventDefault();
-  const u=$('#loginUser').val().trim(), p=$('#loginPass').val();
-  if(!u||!p){ $('#loginAlert').removeClass('d-none').text('กรุณากรอกชื่อผู้ใช้และรหัสผ่าน'); $('.login-card .card').addClass('shake'); setTimeout(()=>$('.login-card .card').removeClass('shake'),450); return; }
-  if(u==='admin'&&p==='1234'){
-    $('#loginAlert').addClass('d-none');
-    $('#btnLogin').prop('disabled',true).html('<span class="spinner-border spinner-border-sm me-2"></span>กำลังตรวจสอบ…');
-    setTimeout(()=>{ $('#view-login').hide(); $('#app').removeClass('d-none'); showView('dashboard'); startClock();
-      toast('เข้าสู่ระบบสำเร็จ','ยินดีต้อนรับ ผู้ดูแลระบบ • งวดเรียกเก็บปัจจุบัน 9/2569');
-      $('#btnLogin').prop('disabled',false).html('<i class="bi bi-box-arrow-in-right me-2"></i>เข้าสู่ระบบ'); },900);
-  } else {
-    $('#loginAlert').removeClass('d-none').text('ชื่อผู้ใช้หรือรหัสผ่านไม่_correct กรุณาลองใหม่');
-    $('.login-card .card').addClass('shake'); setTimeout(()=>$('.login-card .card').removeClass('shake'),450);
-  }
-});
-$('#btnLogout').on('click',()=>confirmBox('ออกจากระบบ','คุณต้องการออกจากระบบบริหารสมาชิกใช่หรือไม่?',()=>{ $('#app').addClass('d-none'); $('#view-login').show(); $('#loginPass').val(''); toast('ออกจากระบบแล้ว','พบกันใหม่ ขอบคุณที่ใช้งานระบบ','warn','bi-box-arrow-right'); }));
-
-/* ═════════════ Router ═════════════ */
-const TITLES={dashboard:'แดชบอร์ด',add:'เพิ่มสมาชิกใหม่',member:'รายละเอียดสมาชิก'};
-function showView(name){
-  $('.view').addClass('d-none');
-  const el=$('#view-'+name); el.removeClass('d-none anim'); void el[0].offsetWidth; el.addClass('anim');
-  $('.sb-link').removeClass('active'); $(`.sb-link[data-nav="${name==='member'?'dashboard':name}"]`).addClass('active');
-  $('#pageTitle').text(TITLES[name]); window.scrollTo({top:0,behavior:'smooth'});
-  if(name==='dashboard'){ initDashboard(); setTimeout(()=>dt&&dt.columns.adjust(),80); }
-  const oc=bootstrap.Offcanvas.getInstance(document.getElementById('sidebar')); if(oc) oc.hide();
-}
-$('[data-nav]').on('click',function(e){ e.preventDefault(); showView($(this).data('nav')); });
-$('[data-soon]').on('click',function(e){ e.preventDefault(); toast('อยู่ระหว่างพัฒนา','โมดูลนี้จะเปิดใช้งานในเวอร์ชันถัดไป','warn','bi-tools'); });
-$('#navSearch').on('click',e=>{e.preventDefault();showView('dashboard');setTimeout(()=>{$('#memberSec')[0].scrollIntoView({behavior:'smooth'});$('#fText').focus();},150);});
-$('#btnQuickAdd').on('click',()=>showView('add')); $('#btnBackDash').on('click',()=>showView('dashboard'));
-$('#lnkAllMembers').on('click',e=>{e.preventDefault();$('#memberSec')[0].scrollIntoView({behavior:'smooth'});});
-$('#globalSearch').on('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault(); const v=$(this).val(); showView('dashboard');
-  setTimeout(()=>{ dt.search(v).draw(); $('#memberSec')[0].scrollIntoView({behavior:'smooth'}); },120); }});
-
-/* ═════════════ Count-up & Clock ═════════════ */
-function countUp(el,target,dec=0,dur=1300){ const t0=performance.now();
-  function step(t){ const p=Math.min((t-t0)/dur,1), e=1-Math.pow(1-p,3), v=target*e;
-    el.text(dec?v.toFixed(dec):Math.round(v).toLocaleString('th-TH')); if(p<1)requestAnimationFrame(step); } requestAnimationFrame(step); }
-$('.brand-stats .num').each(function(){ countUp($(this),parseFloat($(this).data('count')),$(this).data('dec')||0,1600); });
-function startClock(){ setInterval(()=>{ const d=new Date();
-  $('#clock').html(`<i class="bi bi-clock me-1"></i>วัน${WD[d.getDay()]}ที่ ${d.getDate()} ${M_S[d.getMonth()]} ${d.getFullYear()+543} • ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())} น.`);
-  $('#todayLine').text(`วัน${WD[d.getDay()]}ที่ ${d.getDate()} ${M_F[d.getMonth()]} พ.ศ. ${d.getFullYear()+543} — งวดเรียกเก็บที่ 9/2569`); },1000); }
-
-/* ═════════════ DASHBOARD ═════════════ */
-let dt=null, chart=null, dashInit=false;
-function initDashboard(){
-  renderLatest();
-  if(dashInit){ return; } dashInit=true;
-  // สถิติ
-  const act=MEMBERS.filter(m=>m.status==='ปกติ').length;
-  countUp($('#stTotal'),MEMBERS.length); countUp($('#stActive'),act);
-  $('#stInactive').text(MEMBERS.length-act);
-  countUp($('#stNew'),MEMBERS.filter(m=>m.regDate.startsWith('2026-08')).length);
-  const owed=MEMBERS.filter(m=>m.owed>0); $('#stOwed').text(owed.length); $('#stOwedSum').text(money(owed.reduce((s,m)=>s+m.owed,0)));
-  countUp($('#stPaid'),3754000);
-  (function(){ let v=0; const t=setInterval(()=>{ v+=3.2; if(v>=96.4){v=96.4;clearInterval(t);} $('#stRate').text(v.toFixed(1)+'%'); },30); })();
-
-  renderNotifications(); renderDueList(); initChart(); initTable(); initFilters();
-}
-
-/* 2.1 สมาชิกล่าสุด */
-function renderLatest(){
-  const rows=[...MEMBERS].sort((a,b)=>b.regDate.localeCompare(a.regDate)).slice(0,8);
-  $('#latestBody').html(rows.map(m=>`<tr>
-    <td><div class="d-flex align-items-center gap-2"><span class="ava ${avaCls(m.idx)}">${m.first[0]}</span>
-      <div><div class="fw-semibold">${m.prefix}${m.first} ${m.last}</div><small class="text-muted">${m.id}</small></div></div></td>
-    <td class="hide-sm">${tpBadge(m.type)}</td><td class="hide-sm">${m.province}</td>
-    <td><div>${fmtBE(m.regDate)}</div><small style="color:var(--gold-d)">${thAgo(m.regDate)}</small></td>
-    <td>${stBadge(m.status)}</td>
-    <td class="text-end"><button class="btn btn-sm btn-outline-forest" onclick="openMember('${m.id}')" title="ดูรายละเอียด"><i class="bi bi-eye"></i></button></td></tr>`).join(''));
-}
-
-function renderNotifications(){
-  const dead=MEMBERS.find(m=>m.status==='ถึงแก่กรรม');
-  $('#notifList').html(`
-    <a class="dropdown-item text-wrap border-bottom" href="#" onclick="return false"><div class="d-flex gap-2"><i class="bi bi-flower2 mt-1" style="color:#6c757d"></i>
-      <div style="font-size:.85rem">แจ้งสมาชิกถึงแก่กรรม: <b>${dead.prefix}${dead.first} ${dead.last}</b> (${dead.id})<br><small class="text-muted">2 ชั่วโมงที่แล้ว</small></div></div></a>
-    <a class="dropdown-item text-wrap border-bottom" href="#" onclick="return false"><div class="d-flex gap-2"><i class="bi bi-hourglass-split mt-1" style="color:var(--gold-d)"></i>
-      <div style="font-size:.85rem">เตรียมเรียกเก็บเงินสงเคราะห์ <b>งวดที่ 10/2569</b> วันที่ 1 ก.ย. 69<br><small class="text-muted">5 นาทีที่แล้ว</small></div></div></a>
-    <a class="dropdown-item text-wrap" href="#" onclick="return false"><div class="d-flex gap-2"><i class="bi bi-person-plus mt-1" style="color:var(--forest)"></i>
-      <div style="font-size:.85rem">สมาชิกใหม่ <b>6 ราย</b> ในเดือน ส.ค. 2569 รอการตรวจสอบเอกสาร<br><small class="text-muted">เมื่อวานนี้</small></div></div></a>`);
-}
-function renderDueList(){
-  const owed=MEMBERS.filter(m=>m.owed>0);
-  const up=MEMBERS.filter(m=>m.status==='ปกติ'&&m.owed===0).slice(0,3);
-  $('#dueList').html(
-    owed.map(m=>`<div class="due-item"><span class="ava ${avaCls(m.idx)}">${m.first[0]}</span>
-      <div class="flex-grow-1 lh-sm"><b style="font-size:.88rem">${m.prefix}${m.first} ${m.last}</b><br><small class="text-muted">${m.id} • ค้าง ${money(m.owed)} บาท (2 งวด)</small></div>
-      <span class="pill-pay pay-wait">ค้างชำระ</span></div>`).join('') +
-    up.map(m=>`<div class="due-item"><span class="ava ${avaCls(m.idx)}">${m.first[0]}</span>
-      <div class="flex-grow-1 lh-sm"><b style="font-size:.88rem">${m.prefix}${m.first} ${m.last}</b><br><small class="text-muted">${m.id} • ${m.payMethod}</small></div>
-      <span class="pill-pay pay-ok">30 ก.ย. 69</span></div>`).join(''));
-}
-function initChart(){
-  Chart.defaults.font.family="'Sarabun',sans-serif";
-  chart=new Chart(document.getElementById('mainChart'),{data:{
-    labels:['ก.ย. 68','ต.ค. 68','พ.ย. 68','ธ.ค. 68','ม.ค. 69','ก.พ. 69','มี.ค. 69','เม.ย. 69','พ.ค. 69','มิ.ย. 69','ก.ค. 69','ส.ค. 69'],
-    datasets:[
-      {type:'bar',label:'สมาชิกใหม่ (คน)',data:[3,2,4,5,3,4,6,2,4,5,6,6],backgroundColor:'rgba(20,122,92,.75)',borderRadius:6,maxBarThickness:26,yAxisID:'y'},
-      {type:'line',label:'เงินสงเคราะห์ที่จ่าย (พันบาท)',data:[420,385,510,456,398,471,555,432,488,515,470,425],borderColor:'#d4a937',backgroundColor:'rgba(212,169,55,.15)',fill:true,tension:.4,pointBackgroundColor:'#d4a937',yAxisID:'y1'}]},
-    options:{maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
-      plugins:{legend:{position:'bottom',labels:{usePointStyle:true,boxWidth:8}}},
-      scales:{y:{beginAtZero:true,grid:{color:'#eef1ea'},title:{display:true,text:'คน'}},
-              y1:{position:'right',grid:{drawOnChartArea:false},title:{display:true,text:'พันบาท'}}}}});
-}
-
-/* 2.2 ตารางสมาชิก + DataTable + Select2 filter */
-const LOCALE_TH={search:'คำค้น:',lengthMenu:'แสดง _MENU_ รายการ/หน้า',info:'แสดง _START_–_END_ จาก _TOTAL_ ราย',
-  infoEmpty:'ไม่พบข้อมูล',zeroRecords:'ไม่พบสมาชิกตามเงื่อนไขที่กำหนด',emptyTable:'ไม่มีข้อมูลในตาราง',
-  infoFiltered:'(กรองจากทั้งหมด _MAX_ ราย)',paginate:{first:'« แรก',previous:'‹ ก่อนหน้า',next:'ถัดไป ›',last:'สุดท้าย »'},
-  searchPlaceholder:'พิมพ์ชื่อ เลขสมาชิก หรือเลขบัตร…'};
-function initTable(){
-  // เงื่อนไขกรองแบบกำหนดเอง
-  $.fn.dataTable.ext.search.push(function(settings){
-    if(!settings.nTable || settings.nTable.id!=='memberTable') return true;
-    const row=settings.aoData && settings.aoData.length? null:null;
-    return true;
-  });
-  $.fn.dataTable.ext.search.push(function(settings,data,dataIndex){
-    if(!settings.nTable||settings.nTable.id!=='memberTable') return true;
-    const r=settings.aoData[dataIndex]._aData;
-    const fs=$('#fStatus').val(), ft=$('#fType').val(), fp=$('#fProvince').val();
-    const amin=parseFloat($('#fAgeMin').val()), amax=parseFloat($('#fAgeMax').val());
-    const df=$('#fFrom').val(), dto=$('#fTo').val();
-    if(fs&&r.status!==fs)return false; if(ft&&r.type!==ft)return false; if(fp&&r.province!==fp)return false;
-    if(!isNaN(amin)&&r.age<amin)return false; if(!isNaN(amax)&&r.age>amax)return false;
-    if(df&&r.regDate<df)return false; if(dto&&r.regDate>dto)return false;
-    return true;
-  });
-
-  dt=$('#memberTable').DataTable({
-    data:MEMBERS, language:LOCALE_TH, pageLength:10, order:[[6,'desc']],
-    lengthMenu:[[10,25,50,100],[10,25,50,100]],
-    columns:[
-      {data:'id',className:'fw-semibold',render:d=>d},
-      {data:null,orderable:false,render:(r)=>`<div class="d-flex align-items-center gap-2"><span class="ava ${avaCls(r.idx)}">${r.first[0]}</span>
-        <div><div class="fw-semibold">${r.prefix}${r.first} ${r.last}</div><small class="text-muted">${r.idCard}</small></div></div>`},
-      {data:'type',render:t=>tpBadge(t)},
-      {data:'province'},
-      {data:'age',className:'text-center'},
-      {data:'status',render:s=>stBadge(s)},
-      {data:'regDate',render:d=>fmtBE(d)},
-      {data:null,orderable:false,searchable:false,className:'text-center',
-       render:r=>`<button class="btn btn-sm btn-outline-forest" onclick="openMember('${r.id}')" title="ดูรายละเอียด"><i class="bi bi-eye"></i></button>`}
-    ],
-    buttons:[
-      {extend:'copyHtml5',text:'<i class="bi bi-clipboard me-1"></i>คัดลอก',exportOptions:{columns:[0,1,2,3,4,5,6]}},
-      {extend:'excelHtml5',text:'<i class="bi bi-file-earmark-excel me-1"></i>Excel',exportOptions:{columns:[0,1,2,3,4,5,6]}},
-      {extend:'csvHtml5',text:'<i class="bi bi-filetype-csv me-1"></i>CSV',exportOptions:{columns:[0,1,2,3,4,5,6]}},
-      {extend:'print',text:'<i class="bi bi-printer me-1"></i>พิมพ์',title:'ทะเบียนสมาชิกสมาคมฌาปนกิจสงเคราะห์สามัคคีธรรม',exportOptions:{columns:[0,1,2,3,4,5,6]}}
-    ]
-  });
-  $('#dtExport').append('<span class="text-muted me-1" style="font-size:.82rem"><i class="bi bi-download me-1"></i>ส่งออก:</span>');
-  $('#dtExport').append(dt.buttons().container());
-}
-function countFilters(){
-  let n=0; ['fStatus','fType','fProvince'].forEach(id=>{ if($('#'+id).val())n++; });
-  ['fAgeMin','fAgeMax','fFrom','fTo'].forEach(id=>{ if($('#'+id).val())n++; });
-  if(dt&&dt.search())n++;
-  $('#fCount').text(n+' เงื่อนไข').css({background:n?'#fbf3dc':'#eef2ec',color:n?'#8a6d10':'#44554d'});
-}
-function initFilters(){
-  // Select2 ทุกจุดกรอง
-  ['#fStatus','#fType','#fProvince'].forEach(s=>$(s).select2({theme:'bootstrap-5',width:'100%',placeholder:'ทั้งหมด'}));
-  $('#fText').on('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault(); dt.search($(this).val()).draw(); countFilters(); }});
-  $('#btnFilter').on('click',()=>{ dt.search($('#fText').val()).draw(); countFilters();
-    toast('ค้นหาเสร็จสิ้น',`พบ ${dt.rows({search:'applied',filter:'applied'}).count()} รายการตามเงื่อนไข`,'ok','bi-funnel'); });
-  $('#btnResetFilter').on('click',()=>{ $('#fText,#fAgeMin,#fAgeMax,#fFrom,#fTo').val('');
-    $('#fStatus,#fType,#fProvince').val('').trigger('change'); dt.search('').draw(); countFilters(); });
-  $('#fStatus,#fType,#fProvince').on('change',()=>{ dt.draw(); countFilters(); });
-}
-
-/* ═════════════ 3. หน้ารายละเอียดสมาชิก ═════════════ */
-function openMember(id){
-  const m=byId(id); if(!m)return;
-  const pays=buildPayments(m);
-  const yrs=Math.max(1,new Date('2026-08-14').getFullYear()-new Date(m.regDate).getFullYear());
-  const paidRounds = pays.filter(p=>p.status==='ชำระแล้ว').length;
-  const addr=`บ้านเลขที่ ${m.houseNo} ${m.road?m.road+' ':''}${m.subdistrict} ${m.district} ${m.province} ${m.postcode}`;
-  const tl=[];
-  tl.push({d:m.regDate,t:'สมัครสมาชิก',x:`ช่องทาง${m.channel} • เอกสารครบถ้วน`,gold:false});
-  const ap=new Date(m.regDate); ap.setDate(ap.getDate()+7);
-  tl.push({d:iso(ap.getFullYear(),ap.getMonth()+1,ap.getDate()),t:'อนุมัติสมาชิกภาพ',x:'คณะกรรมการทะเบียนอนุมัติครั้งที่ '+(3+ (m.idx%5))+'/25'+(new Date(m.regDate).getFullYear()-1957),gold:true});
-  if(pays[1]) tl.push({d:pays[1].date,t:'ชำระเงินสงเคราะห์',x:`เรียกเก็บที่ ${pays[1].round.replace('เรียกเก็บที่ ','')} • ${money(pays[1].amount)} บาท`,gold:false});
-  if(m.status==='ถึงแก่กรรม'){ tl.push({d:'2026-06-18',t:'แจ้งสมาชิกถึงแก่กรรม',x:'ทายาทยื่นมรณบัตรและคำร้องขอรับเงินสงเคราะห์',gold:true});
-    tl.push({d:'2026-07-10',t:'จ่ายเงินค่าจัดการศพสงเคราะห์',x:'จำนวน 150,000 บาท ให้แก่ผู้รับผลประโยชน์',gold:true}); }
-  tl.push({d:'2026-08-10',t:'ปรับปรุงข้อมูลล่าสุด',x:'เจ้าหน้าที่ทะเบียนอัปเดตฐานข้อมูล',gold:false});
-
-  $('#view-member').html(`
-  <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
-    <nav style="font-size:.85rem"><a href="#" id="bkDash" style="color:var(--forest)"><i class="bi bi-arrow-left me-1"></i>แดชบอร์ด</a> <span class="text-muted mx-1">/</span> <span class="text-muted">รายละเอียดสมาชิก</span></nav>
-    <div class="d-flex gap-2">
-      <button class="btn btn-outline-forest btn-sm" onclick="printCard('${m.id}')"><i class="bi bi-card-heading me-1"></i>พิมพ์บัตรสมาชิก</button>
-      <button class="btn btn-forest btn-sm" onclick="toast('โหมดแก้ไข','ฟีเจอร์แก้ไขข้อมูลสมาชิกจะเปิดใช้ในเวอร์ชันถัดไป','warn','bi-pencil')"><i class="bi bi-pencil me-1"></i>แก้ไขข้อมูล</button>
-    </div>
-  </div>
-
-  <div class="card mb-3 overflow-hidden"><div class="card-body p-4">
-    <div class="d-flex flex-wrap align-items-center gap-3">
-      <span class="ava ava-lg ${avaCls(m.idx)}">${m.first[0]}${m.last[0]}</span>
-      <div class="me-auto">
-        <div class="d-flex align-items-center gap-2 flex-wrap"><h3 class="font-display mb-0">${m.prefix}${m.first} ${m.last}</h3>${stBadge(m.status)}</div>
-        <div class="text-muted" style="font-size:.9rem">เลขสมาชิก <b>${m.id}</b> • ${tpBadge(m.type)} • สังกัด${m.zone}</div>
-        <div class="mt-2 d-flex flex-wrap gap-2" style="font-size:.8rem">
-          <span class="badge rounded-pill" style="background:#eef2ec;color:#44554d"><i class="bi bi-credit-card me-1"></i>${m.idCard}</span>
-          <span class="badge rounded-pill" style="background:#eef2ec;color:#44554d"><i class="bi bi-calendar-heart me-1"></i>อายุ ${m.age} ปี</span>
-          <span class="badge rounded-pill" style="background:#eef2ec;color:#44554d"><i class="bi bi-calendar-check me-1"></i>สมาชิกมาแล้ว ${yrs} ปี</span>
-        </div>
-      </div>
-      <div class="text-end d-none d-md-block"><small class="text-muted">วันสมัคร</small><div class="font-display fs-5" style="color:var(--forest)">${fmtBE(m.regDate)}</div></div>
-    </div>
-    ${m.status==='ถึงแก่กรรม'?`<div class="alert mt-3 mb-0 py-2" style="background:#fbf3dc;border:1px solid #ecd9a0;color:#6d5710;font-size:.88rem"><i class="bi bi-flower2 me-2"></i>สมาคมฯ จ่ายเงินค่าจัดการศพสงเคราะห์แล้ว <b>150,000 บาท</b> เมื่อวันที่ 10 ก.ค. 2569</div>`:''}
-  </div></div>
-
-  <div class="row g-3">
-    <div class="col-lg-4">
-      <div class="card mb-3"><div class="card-body">
-        <div class="sec-head mb-3"><div class="sec-ic ic-green"><i class="bi bi-telephone"></i></div><h6 class="mb-0 font-display">ข้อมูลติดต่อ</h6></div>
-        <ul class="list-unstyled mb-0" style="font-size:.9rem;line-height:2">
-          <li><i class="bi bi-geo-alt me-2" style="color:var(--gold-d)"></i>${addr}</li>
-          <li><i class="bi bi-telephone me-2" style="color:var(--gold-d)"></i>${m.phone}</li>
-          <li><i class="bi bi-envelope me-2" style="color:var(--gold-d)"></i>${m.email}</li>
-          <li><i class="bi bi-briefcase me-2" style="color:var(--gold-d)"></i>อาชีพ${m.occupation}</li>
-        </ul></div></div>
-      <div class="card mb-3"><div class="card-body">
-        <div class="sec-head mb-3"><div class="sec-ic ic-gold"><i class="bi bi-award"></i></div><h6 class="mb-0 font-display">สมาชิกภาพ</h6></div>
-        <div class="row g-2" style="font-size:.87rem">
-          <div class="col-6"><div class="text-muted">ประเภท</div><b>${m.type}</b></div>
-          <div class="col-6"><div class="text-muted">สังกัด</div><b>${m.zone}</b></div>
-          <div class="col-6"><div class="text-muted">ช่องทางสมัคร</div><b>${m.channel}</b></div>
-          <div class="col-6"><div class="text-muted">วิธีชำระเงิน</div><b>${m.payMethod}</b></div>
-        </div>
-        <hr><small class="text-muted">การชำระปี 2569 (${paidRounds}/12 งวด)</small>
-        <div class="progress mt-1" style="height:8px"><div class="progress-bar" style="width:${paidRounds/12*100}%;background:linear-gradient(90deg,var(--forest),var(--gold))"></div></div>
-        <div class="mt-3 p-2 rounded-3 text-center" style="background:${m.owed>0?'#fff6e0':'#eef6f1'};font-size:.85rem">
-          ${m.owed>0?`<i class="bi bi-exclamation-triangle me-1" style="color:var(--gold-d)"></i>ค้างชำระ <b>${money(m.owed)} บาท</b> • ครบกำหนด 30 ก.ย. 69`
-                    :`<i class="bi bi-check-circle me-1" style="color:var(--forest)"></i>งวดที่ 9/2569 ชำระครบถ้วน • ครบกำหนดถัดไป 30 ก.ย. 69`}
-        </div></div></div>
-    </div>
-    <div class="col-lg-8">
-      <div class="card"><div class="card-body">
-        <ul class="nav nav-tabs" role="tablist">
-          <li class="nav-item"><button class="nav-link active font-display" data-bs-toggle="tab" data-bs-target="#tb1">ข้อมูลส่วนตัว</button></li>
-          <li class="nav-item"><button class="nav-link font-display" data-bs-toggle="tab" data-bs-target="#tb2">การชำระเงิน</button></li>
-          <li class="nav-item"><button class="nav-link font-display" data-bs-toggle="tab" data-bs-target="#tb3">ผู้รับผลประโยชน์</button></li>
-          <li class="nav-item"><button class="nav-link font-display" data-bs-toggle="tab" data-bs-target="#tb4">ประวัติ</button></li>
-        </ul>
-        <div class="tab-content pt-3">
-          <div class="tab-pane fade show active" id="tb1">
-            <div class="row g-3" style="font-size:.9rem">
-              <div class="col-md-6"><div class="text-muted">เลขบัตรประชาชน</div><b>${m.idCard}</b></div>
-              <div class="col-md-6"><div class="text-muted">วันเดือนปีเกิด</div><b>${fmtBEfull(m.dob)} (อายุ ${m.age} ปี)</b></div>
-              <div class="col-md-6"><div class="text-muted">เพศ</div><b>${m.gender}</b></div>
-              <div class="col-md-6"><div class="text-muted">อาชีพ</div><b>${m.occupation}</b></div>
-              <div class="col-md-6"><div class="text-muted">อีเมล</div><b>${m.email}</b></div>
-              <div class="col-md-6"><div class="text-muted">โทรศัพท์</div><b>${m.phone}</b></div>
-              <div class="col-12"><div class="text-muted">ที่อยู่ตามทะเบียนบ้าน</div><b>${addr}</b></div>
-            </div></div>
-          <div class="tab-pane fade" id="tb2">
-            <div class="row g-2 mb-3" style="font-size:.85rem">
-              <div class="col-6 col-md-3"><div class="p-2 rounded-3 text-center" style="background:#eef6f1"><div class="text-muted">งวดปัจจุบัน</div><b>เรียกเก็บที่ 9/2569</b></div></div>
-              <div class="col-6 col-md-3"><div class="p-2 rounded-3 text-center" style="background:#eef6f1"><div class="text-muted">ครบกำหนด</div><b>30 ก.ย. 2569</b></div></div>
-              <div class="col-6 col-md-3"><div class="p-2 rounded-3 text-center" style="background:#eef6f1"><div class="text-muted">วิธีชำระ</div><b>${m.payMethod}</b></div></div>
-              <div class="col-6 col-md-3"><div class="p-2 rounded-3 text-center" style="background:${m.owed>0?'#fff6e0':'#eef6f1'}"><div class="text-muted">ยอดค้าง</div><b>${money(m.owed)} บาท</b></div></div>
-            </div>
-            <div class="table-responsive"><table class="table table-sm table-hover align-middle">
-              <thead><tr><th>งวดเรียกเก็บ</th><th>วันที่ชำระ</th><th class="text-end">จำนวน (บาท)</th><th>ช่องทาง</th><th>สถานะ</th></tr></thead>
-              <tbody>${pays.map(p=>`<tr><td class="fw-semibold">${p.round}</td><td>${fmtBE(p.date)}</td><td class="text-end">${money(p.amount)}</td><td>${p.method}</td><td><span class="pill-pay ${p.status==='ชำระแล้ว'?'pay-ok':'pay-wait'}">${p.status}</span></td></tr>`).join('')}</tbody>
-            </table></div></div>
-          <div class="tab-pane fade" id="tb3">
-            <div class="row g-2">${m.beneficiaries.map(b=>`<div class="col-md-6"><div class="ben-card p-3">
-              <div class="d-flex justify-content-between"><b>${b.name}</b><span class="badge-tp tp-3">${b.share}%</span></div>
-              <div style="font-size:.85rem" class="text-muted mt-1"><i class="bi bi-people me-1"></i>${b.relation} • <i class="bi bi-telephone me-1"></i>${b.phone}</div></div></div>`).join('')}
-            </div><div class="alert mt-3 mb-0 py-2" style="background:#eef6f1;font-size:.85rem;color:#0f6a48"><i class="bi bi-info-circle me-1"></i>เมื่อสมาชิกถึงแก่กรรม เงินค่าจัดการศพสงเคราะห์จะจ่ายตามสัดส่วนที่กำหนดไว้ รวม 100%</div></div>
-          <div class="tab-pane fade" id="tb4">
-            <ul class="timeline">${tl.map(e=>`<li class="${e.gold?'gold':''}"><b style="font-size:.92rem">${e.t}</b>
-              <div style="font-size:.83rem" class="text-muted">${e.x}</div><small style="color:var(--gold-d)">${fmtBE(e.d)}</small></li>`).join('')}</ul>
-          </div>
-        </div>
-      </div></div>
-    </div>
-  </div>`);
-  $('#bkDash').on('click',e=>{e.preventDefault();showView('dashboard');});
-  showView('member');
-}
-function printCard(id){
-  const m=byId(id); const w=window.open('','_blank','width=560,height=420');
-  w.document.write(`<html lang="th"><head><meta charset="utf-8"><title>บัตรสมาชิก ${m.id}</title>
-  <link href="https://fonts.googleapis.com/css2?family=Pridi:wght@500;600&family=Sarabun:wght@400;600&display=swap" rel="stylesheet">
-  <style>body{font-family:'Sarabun';display:grid;place-items:center;height:100vh;background:#eee;margin:0}
-  .card{width:420px;border-radius:14px;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,.25);background:#fff}
-  .hd{background:#0b4636;color:#fff;padding:12px 16px;display:flex;gap:10px;align-items:center}
-  .hd b{font-family:'Pridi';font-size:14px}.hd small{color:#d4a937;display:block;font-size:10px;letter-spacing:.08em}
-  .bd{padding:14px 18px;display:flex;gap:14px}
-  .av{width:70px;height:86px;border-radius:8px;background:#dcefe5;color:#0e5c46;display:grid;place-items:center;font-size:30px;font-weight:700;font-family:'Pridi'}
-  .row{font-size:12px;margin:2px 0}.row b{font-size:13px}
-  .bar{height:34px;margin:8px 18px 14px;background:repeating-linear-gradient(90deg,#222 0 2px,#fff 2px 5px,#222 5px 6px,#fff 6px 9px)}
-  .ft{font-size:10px;text-align:center;color:#666;padding-bottom:10px}</style></head><body>
-  <div class="card"><div class="hd"><svg width="42" height="42" viewBox="0 0 64 64"><circle cx="32" cy="32" r="30" fill="#0b4636" stroke="#d4a937" stroke-width="2"/><path d="M32 13c3.8 6.2 10.5 9.4 10.5 17.2 0 6.8-4.7 11.3-10.5 11.3s-10.5-4.5-10.5-11.3c0-3.4 1.4-6 3.4-8.2.3 2.6 1.3 4.5 3.1 5.6-.8-5 1.4-9.7 4-14.6z" fill="#d4a937"/></svg>
-  <div><b>สมาคมฌาปนกิจสงเคราะห์สามัคคีธรรม</b><small>บัตรสมาชิก • MEMBER CARD</small></div></div>
-  <div class="bd"><div class="av">${m.first[0]}${m.last[0]}</div><div>
-  <div class="row">เลขสมาชิก <b style="color:#b98f22;font-family:Pridi">${m.id}</b></div>
-  <div class="row"><b>${m.prefix}${m.first} ${m.last}</b></div>
-  <div class="row">เลขบัตรประชาชน ${m.idCard}</div>
-  <div class="row">ประเภท <b>${m.type}</b> • ${m.zone}</div>
-  <div class="row">สมาชิกตั้งแต่ ${fmtBE(m.regDate)} • สถานะ ${m.status}</div>
-  <div class="row">ใช้ได้ถึง 31 ธ.ค. 2570</div></div></div>
-  <div class="bar"></div><div class="ft">บัตรนี้ออกโดยระบบทะเบียนสมาชิก • กรุณานำมาติดต่อทุกครั้ง</div></div>
-  <script>window.onload=()=>window.print()<\/script></body></html>`);
-  w.document.close();
-}
-
-/* ═════════════ 4. หน้าเพิ่มสมาชิก ═════════════ */
-function fillOptions(){
-  const p1=$('#fProvince'), p2=$('#mProvince');
-  PROV.forEach(p=>{ p1.append(`<option>${p}</option>`); p2.append(`<option>${p}</option>`); });
-  OCC.forEach(o=>$('#mOcc').append(`<option>${o}</option>`));
-}
-let benIdx=0;
-function addBenRow(){
-  benIdx++;
-  const row=$(`<div class="ben-row"><div class="row g-2 align-items-end">
-    <div class="col-md-4"><label class="form-label small mb-1">ชื่อ-สกุล <span class="text-danger">*</span></label><input class="form-control ben-name" required></div>
-    <div class="col-md-3 col-6"><label class="form-label small mb-1">ความสัมพันธ์</label><select class="form-select ben-rel">${REL.map(r=>`<option>${r}</option>`).join('')}</select></div>
-    <div class="col-md-2 col-6"><label class="form-label small mb-1">สัดส่วน (%)</label><input type="number" min="1" max="100" class="form-control ben-share" placeholder="0"></div>
-    <div class="col-md-2 col-8"><label class="form-label small mb-1">เบอร์โทร</label><input class="form-control ben-phone" placeholder="0X-XXXX-XXXX"></div>
-    <div class="col-md-1 col-4"><button type="button" class="btn btn-outline-danger btn-sm w-100 btn-del-ben"><i class="bi bi-trash"></i></button></div></div></div>`);
-  $('#benRows').append(row);
-  row.find('.ben-rel').select2({theme:'bootstrap-5',width:'100%'});
-  row.find('.btn-del-ben').on('click',function(){ row.remove(); updateBenTotal(); });
-  row.find('.ben-share').on('input',updateBenTotal);
-}
-function updateBenTotal(){ let s=0; $('.ben-share').each(function(){ s+=parseFloat($(this).val())||0; });
-  $('#benTotal').text(s+'%').css({background:s===100?'#e6f4ec':'#fff6e0',color:s===100?'#0f6a48':'#8a6d10'}); }
-function resetBen(){ $('#benRows').empty(); addBenRow(); updateBenTotal(); }
-
-function initAddForm(){
-  ['#mPrefix','#mOcc','#mProvince','#mType','#mZone','#mChannel'].forEach(s=>$(s).select2({theme:'bootstrap-5',width:'100%'}));
-  resetBen();
-  // mask เลขบัตรประชาชน
-  $('#mIdCard').on('input',function(){ let d=$(this).val().replace(/\D/g,'').slice(0,13); const g=[1,4,5,2,1]; let out='',k=0;
-    for(const n of g){ if(k>=d.length)break; out+=d.slice(k,k+n); k+=n; if(k<d.length)out+='-'; }
-    $(this).val(out); });
-  $('#mDob').on('change',function(){ $('#mAge').text(this.value?ageOf(this.value):'-'); });
-  $('input[name=mGender]').on('change',function(){ $('#mPrefix').val(this.value==='ชาย'?'นาย':'นาง').trigger('change'); });
-  $('input[name=payMethod]').on('change',function(){ $('.pay-opt').removeClass('picked'); $(this).closest('.pay-opt').addClass('picked'); });
-  $('#btnAddBen').on('click',addBenRow);
-  $('#btnClearFrm').on('click',()=>confirmBox('ล้างฟอร์ม','ต้องการล้างข้อมูลที่กรอกทั้งหมดใช่หรือไม่?',()=>{
-    $('#frmMember')[0].reset(); $('#frmMember').removeClass('was-validated'); $('#mRegDate').val('2026-08-14');
-    ['#mPrefix','#mOcc','#mProvince','#mType','#mZone'].forEach(s=>$(s).val('').trigger('change'));
-    $('#mAge').text('-'); resetBen(); toast('ล้างฟอร์มแล้ว','พร้อมกรอกข้อมูลใหม่','warn','bi-eraser'); }));
-
-  $('#frmMember').on('submit',function(e){
-    e.preventDefault(); this.classList.add('was-validated'); let ok=true;
-    const rawId=$('#mIdCard').val().replace(/\D/g,'');
-    if(rawId.length!==13){ ok=false; $('#mIdCard').addClass('is-invalid'); } else $('#mIdCard').removeClass('is-invalid');
-    ['#mPrefix','#mProvince','#mType','#mZone'].forEach(s=>{ if(!$(s).val()){ ok=false; $(s).addClass('s2-invalid'); } else $(s).removeClass('s2-invalid'); });
-    let share=0, bens=[];
-    $('.ben-row').each(function(){ const nm=$(this).find('.ben-name').val().trim();
-      const sh=parseFloat($(this).find('.ben-share').val())||0; share+=sh;
-      if(nm) bens.push({name:nm,relation:$(this).find('.ben-rel').val(),share:sh,phone:$(this).find('.ben-phone').val()||'-'}); });
-    if(bens.length===0||share!==100){ ok=false; toast('ตรวจสอบผู้รับผลประโยชน์','กรุณาเพิ่มผู้รับผลประโยชน์อย่างน้อย 1 คน และรวมสัดส่วนให้เท่ากับ 100%','err','bi-people'); }
-    if(!$('#mAgree').prop('checked')) ok=false;
-    if(!ok){ if(share===100) toast('กรอกข้อมูลไม่ครบ','โปรดตรวจสอบช่องที่ทำเครื่องหมายสีแดง','err'); return; }
-    const g=$('input[name=mGender]:checked').val()||'ชาย';
-    const nm=MEMBERS.length;
-    const m={idx:nm,id:`สฌส-${1001+nm}`,prefix:$('#mPrefix').val(),first:$('#mFirst').val().trim(),last:$('#mLast').val().trim(),
-      gender:g,dob:$('#mDob').val(),age:ageOf($('#mDob').val()),idCard:$('#mIdCard').val(),phone:$('#mPhone').val(),
-      email:$('#mEmail').val()||'-',occupation:$('#mOcc').val()||'ไม่ระบุ',houseNo:$('#mHouse').val(),road:$('#mRoad').val(),
-      subdistrict:$('#mSub').val(),district:$('#mDist').val(),province:$('#mProvince').val(),postcode:$('#mZip').val(),
-      type:$('#mType').val(),zone:$('#mZone').val(),status:'ปกติ',regDate:$('#mRegDate').val(),channel:$('#mChannel').val(),
-      payMethod:$('input[name=payMethod]:checked').val(),owed:0,beneficiaries:bens};
-    MEMBERS.push(m); dt.row.add(m).draw(false); renderLatest();
-    $('#stTotal').text(MEMBERS.length.toLocaleString());
-    toast('บันทึกสำเร็จ',`เพิ่มสมาชิกใหม่ ${m.prefix}${m.first} ${m.last} (${m.id}) เรียบร้อยแล้ว`,'ok','bi-person-check');
-    $('#frmMember')[0].reset(); $('#frmMember').removeClass('was-validated'); $('#mRegDate').val('2026-08-14');
-    ['#mPrefix','#mOcc','#mProvince','#mType','#mZone'].forEach(s=>$(s).val('').trigger('change')); resetBen();
-    openMember(m.id);
-  });
-}
-
-/* ═════════════ เริ่มต้นระบบ ═════════════ */
-$(function(){ fillOptions(); initAddForm();
-  // count-up หน้า login ทำงานทันทีที่โหลด
-});
-</script>
+    function handleLogin(e) {
+      e.preventDefault();
+      const u = document.getElementById('username').value;
+      const p = document.getElementById('password').value;
+      if (u === 'admin' && p === 'admin123') {
+        window.location.href = 'dashboard.html';
+      } else {
+        alert('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง');
+      }
+    }
+  </script>
 </body>
 </html>
